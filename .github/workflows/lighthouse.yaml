@@ -91,6 +91,7 @@ jobs:
               ].join("\n");
               comments += comment + "\n" + detail + "\n";
             });
+            core.setOutput('comments', comments)
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
