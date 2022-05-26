@@ -35,21 +35,18 @@ jobs:
             let comments = "";
 
             results.forEach((result) => {
-              const { summary, url, jsonPath, htmlPath } = result;
+              const { summary, jsonPath } = result;
               const details = JSON.parse(fs.readFileSync(jsonPath));
               const formatResult = (res) => Math.round(res * 100);
 
               const { audits } = details;
-
-              const parsedHtmlPath = htmlPath.split("/");
-              const path = parsedHtmlPath[parsedHtmlPath.length - 1];
 
               Object.keys(summary).forEach(
                 (key) => (summary[key] = formatResult(summary[key]))
               );
               const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
               const comment = [
-                `⚡️ Lighthouse report! ${url} score in this PR, See more [Detail](https://raon-c.github.io/lighthouse-ci/${path})`,
+                `⚡️ Lighthouse report!`,
                 "| Category | Score |",
                 "| --- | --- |",
                 `| ${score(summary.performance)} Performance | ${summary.performance} |`,
@@ -94,7 +91,6 @@ jobs:
               ].join("\n");
               comments += comment + "\n" + detail + "\n";
             });
-            core.setOutput('comments', comments)
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
