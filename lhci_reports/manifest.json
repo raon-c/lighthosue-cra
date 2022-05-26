@@ -1,0 +1,67 @@
+[
+  {
+    "url": "http://localhost:49262/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_40-report.html",
+    "jsonPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_40-report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.8
+    }
+  },
+  {
+    "url": "http://localhost:49262/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_49-report.html",
+    "jsonPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_49-report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.8
+    }
+  },
+  {
+    "url": "http://localhost:49262/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_07_00_09-report.html",
+    "jsonPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_07_00_09-report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.8
+    }
+  },
+  {
+    "url": "http://localhost:49262/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_07_00_18-report.html",
+    "jsonPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_07_00_18-report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.8
+    }
+  },
+  {
+    "url": "http://localhost:49262/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_59-report.html",
+    "jsonPath": "/Users/raon.c/Desktop/lighthouse/lhci_reports/_-2022_05_26_06_59_59-report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1,
+      "pwa": 0.8
+    }
+  }
+]

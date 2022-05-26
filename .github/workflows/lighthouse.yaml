@@ -22,3 +22,52 @@ jobs:
         run: |
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
+      - name: Format lighthouse score
+        id: format_lighthouse_score // 다음 스텝에서 사용하기 위해 필요한 id정보 입니다.
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.TOKEN}}
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync("/home/runner/work/lighthouse-cra/lighthouse-cra/lhci_reports/manifest.json"));
+
+            // comment에 담을 변수 입니다.
+            let comments = "";
+
+            results.forEach((result) => {
+              const summary = result.summary;
+              const url = result.url;
+              const formatResult = (res) => Math.round(res * 100);
+              Object.keys(summary).forEach(
+                (key) => (summary[key] = formatResult(summary[key]))
+              );
+              const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
+              const comment = [
+                `⚡️ Lighthouse report! ${url} score in this PR:`,
+                "| Category | Score |",
+                "| --- | --- |",
+                `| ${score(summary.performance)} Performance | ${summary.performance} |`,
+                `| ${score(summary.accessibility)} Accessibility | ${
+                  summary.accessibility
+                } |`,
+                `| ${score(summary["best-practices"])} Best practices | ${
+                  summary["best-practices"]
+                } |`,
+                `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+                `| ${score(summary.pwa)} PWA | ${summary.pwa} |`,
+                " ",
+              ].join("\n");
+              comments += comment + "\n";
+            });
+            // 다음 step에서 comments변수를 사용할 수 있도록 output으로 지정합니다.
+            core.setOutput('comments', comments)
+      - name: comment PR
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          // 위에서 실행된 step의 comments변수를 사용하여 댓글에 추가합니다.
+          msg: ${{ steps.format_lighthouse_score.outputs.comments}}
+          check_for_duplicate_msg: false # OPTIONAL
+          delete_prev_regex_msg: "[0-9]" # OPTIONAL
+          duplicate_msg_pattern: "[A-Z]" # OPTIONAL
