@@ -10,7 +10,10 @@ module.exports = {
       target: "temporary-public-storage", // Lighthouse 서버에 결과가 업로드됨 명령어 실행 후 확인할 수 있는 link가 생성됨
     },
     assert: {
-      preset: "lighthouse:no-pwa",
+      assertions: {
+        "categories:performance": ["warn", { minScore: 0.9 }],
+        "categories:accessibility": ["error", { minScore: 1 }],
+      },
     },
   },
 };
