@@ -23,7 +23,7 @@ jobs:
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
       - name: Format lighthouse score
-        id: format_lighthouse_score // 다음 스텝에서 사용하기 위해 필요한 id정보 입니다.
+        id: format_lighthouse-score
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.TOKEN}}
