@@ -35,15 +35,21 @@ jobs:
             let comments = "";
 
             results.forEach((result) => {
-              const summary = result.summary;
-              const url = result.url;
+              const { summary, url, jsonPath, htmlPath } = result;
+              const details = JSON.parse(fs.readFileSync(jsonPath));
               const formatResult = (res) => Math.round(res * 100);
+
+              const { audits } = details;
+
+              const parsedHtmlPath = htmlPath.split("/");
+              const path = parsedHtmlPath[parsedHtmlPath.length - 1];
+
               Object.keys(summary).forEach(
                 (key) => (summary[key] = formatResult(summary[key]))
               );
               const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
               const comment = [
-                `⚡️ Lighthouse report! ${url} score in this PR:`,
+                `⚡️ Lighthouse report! ${url} score in this PR, See more [Detail](https://raon-c.github.io/lighthouse-ci/${path})`,
                 "| Category | Score |",
                 "| --- | --- |",
                 `| ${score(summary.performance)} Performance | ${summary.performance} |`,
@@ -57,9 +63,37 @@ jobs:
                 `| ${score(summary.pwa)} PWA | ${summary.pwa} |`,
                 " ",
               ].join("\n");
-              comments += comment + "\n";
+              const detail = [
+                "| Category | Score |",
+                "| --- | --- |",
+                `| ${score(
+                  audits["first-contentful-paint"].score * 100
+                )} First Contentful Pain | ${
+                  audits["first-contentful-paint"].displayValue
+                } |`,
+                `| ${score(audits.interactive.score * 100)} Time to Interactive | ${
+                  audits.interactive.displayValue
+                } |`,
+                `| ${score(audits["speed-index"].score * 100)} SpeedIndex | ${
+                  audits["speed-index"].displayValue
+                } |`,
+                `| ${score(
+                  audits["total-blocking-time"].score * 100
+                )} Total Blocking Time | ${audits["total-blocking-time"].displayValue} |`,
+                `| ${score(
+                  audits["largest-contentful-paint"].score * 100
+                )} Largest Contentful Pain | ${
+                  audits["largest-contentful-paint"].displayValue
+                } |`,
+                `| ${score(
+                  audits["cumulative-layout-shift"].score * 100
+                )} Cumulative Layout Shift | ${
+                  audits["cumulative-layout-shift"].displayValue
+                } |`,
+                " ",
+              ].join("\n");
+              comments += comment + "\n" + detail + "\n";
             });
-            // 다음 step에서 comments변수를 사용할 수 있도록 output으로 지정합니다.
             core.setOutput('comments', comments)
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
