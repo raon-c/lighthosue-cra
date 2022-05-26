@@ -26,7 +26,7 @@ jobs:
         id: format_lighthouse-score
         uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.TOKEN}}
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs');
             const results = JSON.parse(fs.readFileSync("/home/runner/work/lighthouse-cra/lighthouse-cra/lhci_reports/manifest.json"));
