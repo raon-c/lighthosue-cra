@@ -28,7 +28,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            node ./parser.js
+            node parser.js
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
