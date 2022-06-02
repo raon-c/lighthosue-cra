@@ -18,6 +18,11 @@ results.forEach((result) => {
   Object.keys(summary).forEach(
     (key) => (summary[key] = formatResult(summary[key]))
   );
+
+  Object.keys(audits).forEach(
+    (key) => (audits[key] = formatResult(audits[key]))
+  );
+
   const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
   const comment = [
     `⚡️ Lighthouse report!`,
@@ -38,26 +43,26 @@ results.forEach((result) => {
     "| Category | Score |",
     "| --- | --- |",
     `| ${score(
-      audits["first-contentful-paint"].score * 100
+      audits["first-contentful-paint"].score
     )} First Contentful Pain | ${
       audits["first-contentful-paint"].displayValue
     } |`,
-    `| ${score(audits.interactive.score * 100)} Time to Interactive | ${
+    `| ${score(audits.interactive.score)} Time to Interactive | ${
       audits.interactive.displayValue
     } |`,
-    `| ${score(audits["speed-index"].score * 100)} SpeedIndex | ${
+    `| ${score(audits["speed-index"].score)} SpeedIndex | ${
       audits["speed-index"].displayValue
     } |`,
+    `| ${score(audits["total-blocking-time"].score)} Total Blocking Time | ${
+      audits["total-blocking-time"].displayValue
+    } |`,
     `| ${score(
-      audits["total-blocking-time"].score * 100
-    )} Total Blocking Time | ${audits["total-blocking-time"].displayValue} |`,
-    `| ${score(
-      audits["largest-contentful-paint"].score * 100
+      audits["largest-contentful-paint"].score
     )} Largest Contentful Pain | ${
       audits["largest-contentful-paint"].displayValue
     } |`,
     `| ${score(
-      audits["cumulative-layout-shift"].score * 100
+      audits["cumulative-layout-shift"].score
     )} Cumulative Layout Shift | ${
       audits["cumulative-layout-shift"].displayValue
     } |`,
